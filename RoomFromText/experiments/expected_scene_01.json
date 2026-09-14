@@ -1,0 +1,32 @@
+{
+    "objects": [
+        {
+            "id": "candle_1",
+            "type": "candle",
+            "size": "small"
+        },
+        {
+            "id": "table_1",
+            "type": "table",
+            "size": "large"
+        },
+        {
+            "id": "chest_1",
+            "type": "chest",
+            "size": "locked"
+        }
+    ],
+    "relationships": [
+        {
+            "subject": "candle_1",
+            "relation": "on",
+            "target": "table_1"
+        },
+        {
+            "subject": "candle_1",
+            "relation": "near",
+            "target": "chest_1"
+        }
+    ],
+    "interactions":  []
+}
