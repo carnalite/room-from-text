@@ -8,7 +8,7 @@
 
 This document records the evaluation of the natural-language scene parser used in the natural-language-to-game-scene generation prototype.
 
-The evaluation tests whether the parser can convert natural-language descriptions into the structured JSON representation defined by `json\\\_schema.md`.
+The evaluation tests whether the parser can convert natural-language descriptions into the structured JSON representation defined by `json\_schema.md`.
 
 
 
@@ -624,7 +624,7 @@ Evaluation
 * Objects: Partially correct
 * Negated relationship: Recognized
 * Absence of object: Not represented cleanly
-* Object reference: Invalid for the key because no `key\\\_1` object was created
+* Object reference: Invalid for the key because no `key\\\\\\\\\\\\\\\_1` object was created
 * Overall: Partial / Limitation identified
 
 
@@ -634,7 +634,7 @@ Limitation
 
 
 * The current representation does not yet define a dedicated representation for object absence or negated facts.
-* The parser represented negated relationships using `not\\\_on` and `not\\\_inside`, but the second relationship referenced `"key"` rather than a valid object ID.
+* The parser represented negated relationships using `not\\\\\\\\\\\\\\\_on` and `not\\\\\\\\\\\\\\\_inside`, but the second relationship referenced `"key"` rather than a valid object ID.
 * A future schema revision may define explicit support for negation and object absence.
 
 

@@ -37,7 +37,7 @@ Each object contains:
 
 {
 
-"id": "candle\\\_1",
+"id": "candle\_1",
 
 "type": "candle",
 
@@ -46,5 +46,6 @@ Each object contains:
 "state": "unlit"
 
 }
+
 
 
