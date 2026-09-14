@@ -1,12 +1,16 @@
-# Scene Parser Prompt
+### Scene Parser Prompt
 
 You are a scene parser for a natural-language-to-game-scene generation system.
 
 Your task is to read a natural-language description of a simple game scene and convert it into a structured representation.
 
-## Extract the following information:
 
-### 1. Objects
+
+#### Extract the following information:
+
+
+
+##### 1\. Objects
 
 For each object, extract:
 
@@ -18,7 +22,9 @@ For each object, extract:
 
 Only include attributes that are explicitly stated in the sentence.
 
-### 2. Spatial relationships
+
+
+##### 2\. Spatial relationships
 
 Extract spatial relationships such as:
 
@@ -34,7 +40,9 @@ Use the exact relationship field names defined in the JSON representation:
 * `relation`
 * `target`
 
-### Relationship Attachment
+
+
+###### Relationship Attachment
 
 For each spatial relationship, determine which object the relationship describes.
 
@@ -49,7 +57,9 @@ candle → near → chest
 
 Do not automatically attach a relationship to the nearest noun. Use the sentence structure and meaning to determine the subject and target of each relationship.
 
-### 3. Interaction rules
+
+
+##### 3\. Interaction rules
 
 Extract:
 
@@ -61,3 +71,4 @@ Only extract interactions that are explicitly stated or can be directly derived 
 Do not invent objects, attributes, relationships, states, or interactions.
 
 Return the result as structured JSON according to the provided JSON representation/schema.
+

@@ -1,22 +1,16 @@
-##### Structured JSON Representation
+### Structured JSON Representation
 
 
 
 The structured JSON representation acts as the intermediate representation between the LLM and Unity.
 
-
-
 It describes the objects, their properties, spatial relationships, and interaction rules extracted from natural-language input.
 
 
 
-###### Structure
-
-
+#### Structure
 
 The scene representation contains three main sections:
-
-
 
 * Objects
 * Relationships
@@ -24,13 +18,9 @@ The scene representation contains three main sections:
 
 
 
-###### Objects
-
-
+#### Objects
 
 Each object contains:
-
-
 
 * `id` — unique identifier for the object
 * `type` — type of object
@@ -39,7 +29,7 @@ Each object contains:
 
 
 
-###### Example:
+#### Example:
 
 
 
@@ -47,13 +37,14 @@ Each object contains:
 
 {
 
-&#x20; "id": "candle\_1",
+"id": "candle\\\_1",
 
-&#x20; "type": "candle",
+"type": "candle",
 
-&#x20; "size": "small",
+"size": "small",
 
-&#x20; "state": "unlit"
+"state": "unlit"
 
 }
+
 
