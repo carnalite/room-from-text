@@ -12,7 +12,7 @@ A small candle is on a large table near a locked chest.
 
 ##### Expected Representation
 
-See `expected\_scene\_01.json`.
+See `expected_scene_01.json`.
 
 
 
@@ -20,36 +20,36 @@ See `expected\_scene\_01.json`.
 
 ```json
 {
-  "objects": \[
+  "objects": [
     {
-      "id": "candle\_1",
+      "id": "candle_1",
       "type": "candle",
       "size": "small"
     },
     {
-      "id": "table\_1",
+      "id": "table_1",
       "type": "table",
       "size": "large"
     },
     {
-      "id": "chest\_1",
+      "id": "chest_1",
       "type": "chest",
       "state": "locked"
     }
   ],
-  "relationships": \[
+  "relationships": [
     {
       "type": "on",
-      "subject": "candle\_1",
-      "object": "table\_1"
+      "subject": "candle_1",
+      "object": "table_1"
     },
     {
       "type": "near",
-      "subject": "table\_1",
-      "object": "chest\_1"
+      "subject": "table_1",
+      "object": "chest_1"
     }
   ],
-  "interactions": \[]
+  "interactions": []
 }
 ```
 
