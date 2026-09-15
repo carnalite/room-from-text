@@ -37,7 +37,7 @@ Each object contains:
 
 {
 
-"id": "candle\_1",
+"id": "candle_1",
 
 "type": "candle",
 
