@@ -1,14 +1,22 @@
-using System.Drawing;
 using UnityEngine;
  
 public class SceneGenerator : MonoBehaviour
 {
+    public InteractionManager interactionManager;
+    public void ClearGeneratedScene()
+    {
+        GameObject[] generatedObjects = GameObject.FindGameObjectsWithTag("GeneratedObject");
 
-   
+        foreach (GameObject obj in generatedObjects)
+        {
+            Destroy(obj);
+        }
+    }
 
     public string testJson = "{\r\n  \"objects\": [\r\n    {\r\n      \"id\": \"table_1\",\r\n      \"type\": \"table\",\r\n      \"size\": \"large\"\r\n    },\r\n    {\r\n      \"id\": \"candle_1\",\r\n      \"type\": \"candle\",\r\n      \"size\": \"small\"\r\n    }\r\n  ],\r\n  \"relationships\": [\r\n    {\r\n      \"subject\": \"candle_1\",\r\n      \"relation\": \"near\",\r\n      \"target\": \"table_1\"\r\n    }\r\n  ]\r\n}";
     public void GenerateScene(string json)
     {
+        ClearGeneratedScene();
         SceneData sceneData = JsonUtility.FromJson<SceneData>(json);
         Debug.Log(sceneData.objects.Count);
         Debug.Log(sceneData.relationships.Count);
@@ -35,6 +43,7 @@ public class SceneGenerator : MonoBehaviour
             if (generatedObject != null)
             {
                 generatedObject.name = obj.id;
+                generatedObject.tag = "GeneratedObject";
                 if (obj.type == "chest")
                 {
                     ChestInteraction chestInteraction =
@@ -91,7 +100,7 @@ public class SceneGenerator : MonoBehaviour
                     generatedObject.transform.position = new Vector3(3, 0, 0);
                 }
 
-
+               
             }
         }
 
@@ -137,6 +146,14 @@ public class SceneGenerator : MonoBehaviour
 
                 Debug.Log(subject.name + " placed inside " + target.name);
             }
+        }
+        if (interactionManager != null)
+        {
+            interactionManager.SetupInteractions(sceneData.interactions);
+        }
+        else
+        {
+            Debug.LogWarning("InteractionManager reference is missing.");
         }
     }
     

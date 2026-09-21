@@ -164,6 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30d3d183cca03a84bbfc78eed520e247, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactionManager: {fileID: 1641382237}
   testJson: '{   "objects": [     {       "id": "table_1",       "type": "table",      
     "size": "large"     },     {       "id": "candle_1",       "type": "candle",      
     "size": "small"     },     {       "id": "chest_1",       "type": "chest",      
@@ -182,26 +183,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d0777fd768c514e93e2e7e801e4c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputText: A large locked chest.
+  inputText: A small red key is on the floor near a locked chest. When the player
+    picks up the key, the chest becomes unlocked.
   apiKey: 
   sceneGenerator: {fileID: 250540291}
   sceneParserPrompt: "You are a scene parser for a natural-language-to-game-scene
-    generation system.\r\n\r\nConvert the user's natural-language scene description
-    into the structured JSON format defined below.\r\n\r\nOBJECTS\r\n\r\nFor every
-    object mentioned in the scene:\r\n\r\n- Create a unique id using the object type
-    and a number, such as candle_1, table_1, chest_1.\r\n- Always include id.\r\n-
-    Always include type.\r\n- Include size only when explicitly stated.\r\n- Include
-    color only when explicitly stated.\r\n- Include material only when explicitly
-    stated.\r\n- Include state only when explicitly stated.\r\n- Never put one attribute
-    into another attribute.\r\n- Do not use null.\r\n- Do not invent attributes.\n\r\n\rFor
+    generation system.\r\nConvert the user's natural-language scene description into
+    the structured JSON format defined below.\r\n\r\nOBJECTS\r\n\r\nFor every object
+    mentioned in the scene:\r\n\r\n- Create a unique id using the object type and
+    a number, such as candle_1, table_1, chest_1.\r\n- Always include id.\r\n- Always
+    include type.\r\n- Include size only when explicitly stated.\r\n- Include color
+    only when explicitly stated.\r\n- Include material only when explicitly stated.\r\n-
+    Include state only when explicitly stated.\r\n- Never put one attribute into
+    another attribute.\r\n- Do not use null.\r\n- Do not invent attributes.\r\n\r\nFor
     color:\r\n- If a color is explicitly stated, return it as a hexadecimal color
     code in the format \"#RRGGBB\".\r\n- Use common standard color values.\r\n- If
-    no color is stated, omit the color field.\n\nRELATIONSHIPS\r\n\r\nExtract explicit
-    spatial relationships.\r\n\r\nSupported relationships are:\r\n\r\n- on\r\n- near\r\n-
-    behind\r\n- inside\r\n- beside\r\n\r\nEvery relationship must use exactly:\r\n\r\nsubject\r\nrelation\r\ntarget\r\n\r\nFor
-    example:\r\n\r\n\"A small candle is on a large table near a locked chest.\"\r\n\r\nmeans:\r\n\r\ncandle_1
+    no color is stated, omit the color field.\r\n\r\nRELATIONSHIPS\r\n\r\nExtract
+    explicit spatial relationships.\r\n\r\nSupported relationships are:\r\n\r\n-
+    on\r\n- near\r\n- behind\r\n- inside\r\n- beside\r\n\r\nEvery relationship must
+    use exactly:\r\n\r\nsubject\r\nrelation\r\ntarget\r\n\r\nFor example:\r\n\r\n\"A
+    small candle is on a large table near a locked chest.\"\r\n\r\nmeans:\r\n\r\ncandle_1
     on table_1\r\ncandle_1 near chest_1\r\n\r\nDo not attach a relationship simply
-    to the nearest noun. Use the meaning and sentence structure.\r\n\r\nOUTPUT FORMAT\r\n\r\nReturn
+    to the nearest noun. Use the meaning and sentence structure.\r\n\r\nOUTPUT FORMAT\r\nReturn
     ONLY valid JSON.\r\n\r\nDo not return Markdown.\r\nDo not use code fences.\r\nDo
     not include explanations.\r\nDo not include notes.\r\nDo not include text before
     or after the JSON.\r\n\r\nThe JSON must contain exactly these two top-level fields:\r\n\r\nobjects\r\nrelationships\r\n\r\nExample:\r\n\r\n{\r\n 
@@ -212,7 +215,19 @@ MonoBehaviour:
     }\r\n  ],\r\n  \"relationships\": [\r\n    {\r\n      \"subject\": \"candle_1\",\r\n     
     \"relation\": \"on\",\r\n      \"target\": \"table_1\"\r\n    },\r\n    {\r\n     
     \"subject\": \"candle_1\",\r\n      \"relation\": \"near\",\r\n      \"target\":
-    \"chest_1\"\r\n    }\r\n  ]\r\n}"
+    \"chest_1\"\r\n    }\r\n  ]\r\n}\r\n\r\nINTERACTION RULES\r\n\r\nExtract explicitly
+    stated interactions.\r\n\r\nFor each interaction, return:\r\n\r\n- trigger\r\n-
+    action\r\n- effect\r\n\r\nExample:\r\n\r\n\"When the player opens the chest,
+    the chest becomes unlocked.\"\r\n\r\nshould become:\r\n\r\n{\r\n  \"trigger\":
+    \"player\",\r\n  \"action\": \"open chest\",\r\n  \"effect\": \"chest becomes
+    unlocked\"\r\n}\r\n\r\nDo not invent interactions.\r\n\r\nInteraction representation\r\n\r\nRepresent
+    each interaction using:\r\ntrigger\r\nsubject\r\naction\r\ntarget\r\nExample:\r\n\"When
+    the player picks up the key, the locked chest becomes unlocked.\" should produce:\r\n{\r\n\"trigger\":
+    \"collect\",\r\n\"subject\": \"key_1\",\r\n\"action\": \"unlock\",\r\n\"target\":
+    \"chest_1\"\r\n}\r\nOnly create an interaction when it is explicitly stated in
+    the input.  Do not invent interactions. The subject and target must use the IDs
+    of objects defined in the objects list.\r\n\r\nOutput structure\r\nReturn JSON
+    using exactly these top-level fields:\r\nobjects\r\nrelationships\r\ninteractions"
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,6 +535,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1641382235
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1641382236}
+  - component: {fileID: 1641382237}
+  m_Layer: 0
+  m_Name: InteractionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1641382236
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641382235}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.9295478, y: 1.2136923, z: -2.6710682}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1641382237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641382235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df778ec2b04929a4a9446d23be1425d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -528,3 +587,4 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 250540290}
+  - {fileID: 1641382236}

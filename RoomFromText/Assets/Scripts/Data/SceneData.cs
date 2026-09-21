@@ -32,6 +32,7 @@ public class SceneRelationship
 public class InteractionRule
 {
     public string trigger;
+    public string subject;
     public string action;
-    public string effect;
+    public string target;
 }

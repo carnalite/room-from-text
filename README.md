@@ -2,7 +2,11 @@
 
 
 
-LLM-driven natural language to Unity scene generation prototype.
+**LLM-driven natural language to Unity scene generation prototype.**
+
+
+
+Investigating how reliably LLMs can perform this language-to-executable-environment transformation, particularly with respect to structured representation, spatial consistency, and semantic correctness.
 
 ##### 
 
@@ -10,11 +14,15 @@ LLM-driven natural language to Unity scene generation prototype.
 
 
 
-###### Natural-language scene description
+→ Natural-language scene description
 
 → LLM scene parser
 
 → Structured JSON scene representation
+
+→ Unity scene generation
+
+→Basic interaction
 
 ##### 
 
@@ -80,6 +88,12 @@ The evaluation also identified limitations involving unsupported descriptive att
 * \[x] Structured JSON scene representation
 * \[x] Relationship attachment handling
 * \[x] Parser evaluation and edge-case testing
+* \[x] Unity scene generation
+* \[x] Spatial relationships
+* \[x] Color handling
+* \[x] Basic material handling
+* \[x] Basic interaction
+* \[x] End-to-end prototype testing
 
 
 
@@ -87,11 +101,29 @@ The evaluation also identified limitations involving unsupported descriptive att
 
 
 
-* \[ ] Convert parsed JSON into Unity scene objects
-* \[ ] Generate spatial relationships in Unity
-* \[ ] Apply object states
-* \[ ] Support interaction rules
-* \[ ] Demonstrate end-to-end natural-language-to-game-scene generation
+* \[ ] Improved spatial layout
+* \[ ] More detailed object representations
+* \[ ] More complex interaction rules
 
 
+
+
+
+##### Current Limitations
+
+
+
+The current prototype uses simple Unity primitives and approximate spatial placement. The scene generator currently supports a limited vocabulary of objects, attributes, and spatial relationships.
+
+
+
+Future work includes improved spatial constraint handling, richer object representations, and more complex interaction rules.
+
+
+
+##### Prototype Results
+
+
+
+End-to-end test results are documented in - prototype\_results.md.
 

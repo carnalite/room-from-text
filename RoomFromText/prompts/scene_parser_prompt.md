@@ -198,7 +198,7 @@ Example:
 
 
 
-###### Interaction rules
+###### INTERACTION RULES
 
 
 
@@ -243,4 +243,40 @@ should become:
 
 
 Do not invent interactions.
+
+
+
+###### Interaction representation
+
+
+
+Represent each interaction using:
+
+* trigger
+* subject
+* action
+* target
+
+Example:
+
+"When the player picks up the key, the locked chest becomes unlocked." should produce:
+
+{
+"trigger": "collect",
+"subject": "key\_1",
+"action": "unlock",
+"target": "chest\_1"
+}
+
+Only create an interaction when it is explicitly stated in the input.  Do not invent interactions. The subject and target must use the IDs of objects defined in the objects list.
+
+
+
+##### Output structure
+
+Return JSON using exactly these top-level fields:
+
+* objects
+* relationships
+* interactions
 

@@ -58,6 +58,7 @@ public class LLMSceneParser : MonoBehaviour
 
         request.SetRequestHeader("Content-Type", "application/json");
         request.SetRequestHeader("Authorization", "Bearer " + apiKey);
+        request.SetRequestHeader("Authorization", "Bearer " + apiKey);
 
         yield return request.SendWebRequest();
 
@@ -100,7 +101,8 @@ public class LLMSceneParser : MonoBehaviour
 
             if (sceneData == null ||
                 sceneData.objects == null ||
-                sceneData.relationships == null)
+                sceneData.relationships == null||
+                sceneData.interactions == null)
             {
                 Debug.LogError("LLM JSON does not match the expected SceneData structure.");
                 yield break;
