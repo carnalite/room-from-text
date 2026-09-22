@@ -8,7 +8,7 @@ public class KeyInteraction : MonoBehaviour
     {
         keyCollected = true;
 
-        Debug.Log("Key collected!");
+        Debug.Log(gameObject.name + " collected! KeyInteraction.keyCollected = true");
 
         Destroy(gameObject);
     }

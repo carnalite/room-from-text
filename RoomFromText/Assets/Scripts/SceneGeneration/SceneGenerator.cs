@@ -13,10 +13,24 @@ public class SceneGenerator : MonoBehaviour
         }
     }
 
+
+    private void CreateDefaultFloor()
+    {
+        GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Plane);
+
+        floor.name = "DefaultFloor";
+        floor.tag = "GeneratedObject";
+
+        floor.transform.position = new Vector3(0, -0.5f, 0);
+        floor.transform.localScale = Vector3.one * 5f;
+    }
+
+
     public string testJson = "{\r\n  \"objects\": [\r\n    {\r\n      \"id\": \"table_1\",\r\n      \"type\": \"table\",\r\n      \"size\": \"large\"\r\n    },\r\n    {\r\n      \"id\": \"candle_1\",\r\n      \"type\": \"candle\",\r\n      \"size\": \"small\"\r\n    }\r\n  ],\r\n  \"relationships\": [\r\n    {\r\n      \"subject\": \"candle_1\",\r\n      \"relation\": \"near\",\r\n      \"target\": \"table_1\"\r\n    }\r\n  ]\r\n}";
     public void GenerateScene(string json)
     {
         ClearGeneratedScene();
+        CreateDefaultFloor();
         SceneData sceneData = JsonUtility.FromJson<SceneData>(json);
         Debug.Log(sceneData.objects.Count);
         Debug.Log(sceneData.relationships.Count);
@@ -38,6 +52,11 @@ public class SceneGenerator : MonoBehaviour
             else if (obj.type=="key")
             {
                 generatedObject = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+                generatedObject.AddComponent<KeyInteraction>();
+            }
+            else if (obj.type == "floor")
+            {
+                generatedObject = GameObject.CreatePrimitive(PrimitiveType.Plane);
             }
 
             if (generatedObject != null)
@@ -88,6 +107,10 @@ public class SceneGenerator : MonoBehaviour
                 {
                     generatedObject.transform.localScale = Vector3.one * 2f;
                 }
+                if (obj.type == "floor")
+                {
+                    generatedObject.transform.localScale = Vector3.one * 5f;
+                }
 
 
                 // POSITION
@@ -99,8 +122,12 @@ public class SceneGenerator : MonoBehaviour
                 {
                     generatedObject.transform.position = new Vector3(3, 0, 0);
                 }
+                else if (obj.type == "floor")
+                {
+                    generatedObject.transform.position = new Vector3(0, -0.5f, 0);
+                }
 
-               
+
             }
         }
 

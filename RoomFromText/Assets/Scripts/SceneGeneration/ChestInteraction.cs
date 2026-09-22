@@ -11,16 +11,26 @@ public class ChestInteraction : MonoBehaviour
             if (KeyInteraction.keyCollected)
             {
                 isLocked = false;
-                Debug.Log(gameObject.name + " is now unlocked!");
+
+                Debug.Log(
+                    gameObject.name +
+                    " is now unlocked!"
+                );
             }
             else
             {
-                Debug.Log(gameObject.name + " is locked. Find the key first.");
+                Debug.Log(
+                    gameObject.name +
+                    " is locked. Find the key first."
+                );
             }
         }
         else
         {
-            Debug.Log(gameObject.name + " is already unlocked.");
+            Debug.Log(
+                gameObject.name +
+                " is already unlocked."
+            );
         }
     }
 }

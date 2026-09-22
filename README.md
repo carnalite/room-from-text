@@ -2,13 +2,15 @@
 
 
 
-**LLM-driven natural language to Unity scene generation prototype.**
+**An LLM-driven prototype that converts natural-language scene descriptions into structured representations and**
+
+**generates executable Unity environments.**
 
 
 
-Investigating how reliably LLMs can perform this language-to-executable-environment transformation, particularly with respect to structured representation, spatial consistency, and semantic correctness.
+**The system uses an intermediate JSON representation between language understanding and Unity scene generation.**
 
-##### 
+
 
 ##### Current Pipeline
 
@@ -20,9 +22,11 @@ Investigating how reliably LLMs can perform this language-to-executable-environm
 
 → Structured JSON scene representation
 
+→ Scene Validation
+
 → Unity scene generation
 
-→Basic interaction
+→ Basic interaction
 
 ##### 
 
@@ -86,14 +90,13 @@ The evaluation also identified limitations involving unsupported descriptive att
 
 * \[x] Natural-language scene parser
 * \[x] Structured JSON scene representation
-* \[x] Relationship attachment handling
-* \[x] Parser evaluation and edge-case testing
-* \[x] Unity scene generation
+* \[x] Object attributes
 * \[x] Spatial relationships
-* \[x] Color handling
-* \[x] Basic material handling
-* \[x] Basic interaction
-* \[x] End-to-end prototype testing
+* \[x] LLM-generated interaction rules
+* \[x] Data-driven interaction execution
+* \[x] Scene regeneration
+* \[x] Basic scene validation
+* \[x] End-to-end prototype
 
 
 
@@ -101,9 +104,10 @@ The evaluation also identified limitations involving unsupported descriptive att
 
 
 
-* \[ ] Improved spatial layout
-* \[ ] More detailed object representations
-* \[ ] More complex interaction rules
+* \[ ] Richer object representations
+* \[ ] Improved spatial constraint handling
+* \[ ] Broader executable interaction capabilities
+* \[ ] Systematic evaluation of LLM reliability
 
 
 
@@ -113,11 +117,11 @@ The evaluation also identified limitations involving unsupported descriptive att
 
 
 
-The current prototype uses simple Unity primitives and approximate spatial placement. The scene generator currently supports a limited vocabulary of objects, attributes, and spatial relationships.
+The current prototype uses Unity primitives and a limited vocabulary of object types, spatial relationships, and interaction actions.
 
 
 
-Future work includes improved spatial constraint handling, richer object representations, and more complex interaction rules.
+The generated spatial placement is approximate and the interaction executor currently supports a limited set of predefined executable actions.
 
 
 

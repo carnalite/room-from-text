@@ -109,6 +109,11 @@ public class LLMSceneParser : MonoBehaviour
             }
 
             Debug.Log("LLM JSON parsed successfully.");
+            if (!SceneValidator.Validate(sceneData))
+            {
+                Debug.LogError("Scene validation failed.");
+                yield break;
+            }
 
             if (sceneGenerator == null)
             {
