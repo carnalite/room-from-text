@@ -1,0 +1,40 @@
+{
+  "objects": [
+    "key",
+    "table",
+    "chest",
+    "candle",
+    "floor"
+  ],
+  "sizes": [
+    "small",
+    "medium",
+    "large"
+  ],
+  "colors": [
+    "red",
+    "blue",
+    "green",
+    "yellow"
+  ],
+  "materials": [
+    "wooden",
+    "metal",
+    "stone"
+  ],
+  "relationships": [
+    "on",
+    "near",
+    "behind",
+    "inside",
+    "beside"
+  ],
+  "states": [
+    "locked",
+    "unlocked"
+  ],
+  "actions": [
+    "collect",
+    "unlock"
+  ]
+}
