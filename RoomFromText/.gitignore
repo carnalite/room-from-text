@@ -64,6 +64,7 @@ sysinfo.txt
 *.unitypackage.meta
 *.app
 *.venv
+*embedding_cache.json
 
 # Crashlytics generated file
 crashlytics-build.properties
