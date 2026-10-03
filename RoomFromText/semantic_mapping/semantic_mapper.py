@@ -155,17 +155,16 @@ def build_embeddings(concepts):
     return embeddings
 
 
-def find_best_match(
+def find_candidates(
     phrase,
     category,
     embeddings,
-    threshold=0.60
+    top_k=3
 ):
 
     phrase_embedding = get_embedding(phrase)
 
-    best_concept = None
-    best_score = -1
+    candidates = []
 
     for concept, concept_embedding in embeddings[category].items():
 
@@ -174,14 +173,44 @@ def find_best_match(
             concept_embedding
         )
 
-        if score > best_score:
+        candidates.append(
+            (concept, score)
+        )
 
-            best_score = score
-            best_concept = concept
+    candidates.sort(
+        key=lambda item: item[1],
+        reverse=True
+    )
 
-    accepted = best_score >= threshold
+    return candidates[:top_k]
 
-    return best_concept, best_score, accepted
+def format_candidates(
+    phrase,
+    category,
+    candidates
+):
+
+    lines = []
+
+    lines.append(
+        f"Phrase: {phrase}"
+    )
+
+    lines.append(
+        f"Category: {category}"
+    )
+
+    lines.append(
+        "Candidate concepts:"
+    )
+
+    for concept, score in candidates:
+
+        lines.append(
+            f"- {concept} (similarity: {score:.4f})"
+        )
+
+    return "\n".join(lines)
 
 
 if __name__ == "__main__":
@@ -206,27 +235,19 @@ if __name__ == "__main__":
         ("close to", "relationships")
     ]
 
-    print("\nSemantic mappings:\n")
+    print("\nSemantic candidates:\n")
 
     for phrase, category in test_phrases:
 
-        concept, score, accepted = find_best_match(
+        candidates = find_candidates(
             phrase,
             category,
-            embeddings
+            embeddings,
+            top_k=3
         )
 
-        if accepted:
-
-            print(
-                f"{phrase} -> {concept} "
-                f"(score: {score:.4f})"
-            )
-
-        else:
-
-            print(
-                f"{phrase} -> {concept} "
-                f"(score: {score:.4f}) "
-                f"[below threshold]"
-            )
+        print("\n" + format_candidates(
+            phrase,
+            category,
+            candidates
+        ))

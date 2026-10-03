@@ -64,6 +64,8 @@ sysinfo.txt
 *.unitypackage.meta
 *.app
 *.venv
+*__pycache__/
+*.pyc
 *embedding_cache.json
 
 # Crashlytics generated file
